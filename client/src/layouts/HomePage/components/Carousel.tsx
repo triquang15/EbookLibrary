@@ -1,4 +1,4 @@
-import { ReturnBook } from "./ReturnBook"
+import { ReturnBook } from "./ReturnBook";
 
 export const Carousel = () => {
     return (
