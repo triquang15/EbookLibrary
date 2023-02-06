@@ -1,6 +1,65 @@
 import { ReturnBook } from "./ReturnBook";
+import { useState, useEffect } from "react";
+import Book from "../../../models/Book";
+import { SpinnerLoading } from "../../Utils/SpinnerLoading";
 
 export const Carousel = () => {
+
+    const [books, setBooks] = useState<Book[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [httpError, setHttpError] = useState(null);
+
+    useEffect(() => {
+        const fetchBook = async () => {
+            const baseUrl: string = "http://localhost:8080/api/books";
+
+            const url: string = `${baseUrl}?page=0&size=5`;
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseJson = await response.json();
+            const responseData = responseJson._embedded.books;
+            const loadBooks: Book[] = [];
+
+            for (const key in responseData) {
+                loadBooks.push({
+                    id: responseData[key].id,
+                    title: responseData[key].title,
+                    author: responseData[key].author,
+                    description: responseData[key].description,
+                    copies: responseData[key].copies,
+                    copiesAvailable: responseData[key].copiesAvailable,
+                    category: responseData[key].category,
+                    image: responseData[key].image
+                });
+            }
+
+            setBooks(loadBooks);
+            setIsLoading(false);
+        };
+        fetchBook().catch((error: any) => {
+            setIsLoading(false);
+            setHttpError(error.message);
+        })
+    }, []);
+
+    if (isLoading) {
+        return (
+            <SpinnerLoading />
+        )
+    }
+
+    if (httpError) {
+        return (
+            <div className="container m-5">
+                <p>{httpError}</p>
+            </div>
+        )
+    }
+
     return (
         <div className="container mt-5" style={{ height: 550 }}>
             <div className="homepage-carousel-title">
@@ -13,25 +72,25 @@ export const Carousel = () => {
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <div className="row d-flex justify-content-center align-items-center">
-                            <ReturnBook />
-                            <ReturnBook />
-                            <ReturnBook />
+                            {books.slice(0, 3).map(book => (
+                                <ReturnBook book={book} key={book.id} />
+                            ))}
                         </div>
                     </div>
 
                     <div className="carousel-item">
                         <div className="row d-flex justify-content-center align-items-center">
-                            <ReturnBook />
-                            <ReturnBook />
-                            <ReturnBook />
+                            {books.slice(3, 6).map(book => (
+                                <ReturnBook book={book} key={book.id} />
+                            ))}
                         </div>
                     </div>
 
                     <div className="carousel-item">
                         <div className="row d-flex justify-content-center align-items-center">
-                            <ReturnBook />
-                            <ReturnBook />
-                            <ReturnBook />
+                            {books.slice(6, 9).map(book => (
+                                <ReturnBook book={book} key={book.id} />
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -51,7 +110,7 @@ export const Carousel = () => {
             {/* Mobile */}
             <div className="d-lg-none mt-3">
                 <div className="row d-flex justify-content-center align-items-center">
-                    <ReturnBook />
+                    <ReturnBook book={books[4]} key={books[4].id} />
                 </div>
             </div>
             <div className="homepage-carousel-title mt-3">
