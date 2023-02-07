@@ -12,12 +12,21 @@ export const SearchBookPage = () => {
     const [booksPerPage] = useState(5);
     const [totalBooks, setTotalBooks] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [search, setSearch] = useState('');
+    const [searchUrl, setSearchUrl] = useState('');
+    const [categorySelection, setCategorySelection] = useState('Books');
 
     useEffect(() => {
         const fetchBook = async () => {
             const baseUrl: string = "http://localhost:8080/api/books";
 
-            const url: string = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+            let url: string = '';
+
+            if (searchUrl === '') {
+                url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+            } else {
+                url = baseUrl + searchUrl;
+            }
             const response = await fetch(url);
 
             if (!response.ok) {
@@ -52,7 +61,7 @@ export const SearchBookPage = () => {
             setHttpError(error.message);
         })
         window.scrollTo(0, 0);
-    }, [currentPage]);
+    }, [currentPage, searchUrl]);
 
     if (isLoading) {
         return (
@@ -68,6 +77,29 @@ export const SearchBookPage = () => {
         )
     }
 
+    const searchHandleChange = () => {
+        if (search == '') {
+            setSearchUrl('');
+        } else {
+            setSearchUrl(`/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`);
+        }
+    }
+
+    const categoryField = (value: string) => {
+        if (
+            value === 'Java' ||
+            value === 'Python' ||
+            value === 'Javascript' ||
+            value === 'DevOps'
+        ) {
+            setCategorySelection(value);
+            setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`);
+        } else {
+            setCategorySelection('All Categories');
+            setSearchUrl(`?page=0&size=${booksPerPage}`);
+        }
+    }
+
     const indexOfLastBook: number = currentPage * booksPerPage;
     const indexFirstBook: number = indexOfLastBook - booksPerPage;
     let lastItem = booksPerPage * currentPage <= totalBooks ? booksPerPage * currentPage : totalBooks;
@@ -80,39 +112,57 @@ export const SearchBookPage = () => {
                     <div className="row mt-5">
                         <div className="col-6">
                             <div className="d-flex">
-                                <input type="search" className="form-control me-2" placeholder="Search for anything..." aria-labelledby="Search" />
-                                <button className="btn btn-md btn-info text-white">Search</button>
+                                <input type="search" className="form-control me-2" placeholder="Search for anything..." aria-labelledby="Search"
+                                    onChange={e => setSearch(e.target.value)} />
+                                <button className="btn btn-md btn-info text-white" onClick={() => searchHandleChange()}>Search</button>
                             </div>
                         </div>
                         <div className="col-4">
                             <div className="dropdown">
                                 <button className="btn btn-md btn-warning dropdown-toggle" type="button"
-                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded='false'>Category
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded='false'>{categorySelection}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li>
-                                        <a href="#" className="dropdown-item">All</a>
+                                    <li onClick={() => categoryField('All Categories')}>
+                                        <a href="#" className="dropdown-item">All Categories</a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField('Java')}>
                                         <a href="#" className="dropdown-item">Java</a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField('Python')}>
                                         <a href="#" className="dropdown-item">Python</a>
                                     </li>
-                                    <li>
-                                        <a href="#" className="dropdown-item">React Js</a>
+                                    <li onClick={() => categoryField('Javascript')}>
+                                        <a href="#" className="dropdown-item">JavaScript</a>
+                                    </li>
+                                    <li onClick={() => categoryField('DevOps')}>
+                                        <a href="#" className="dropdown-item">DevOps</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div className="mt-3">
-                        <h5>Number of results: ({totalBooks})</h5>
-                    </div>
-                    <p>{indexFirstBook + 1} to {lastItem} of {totalBooks} items:</p>
-                    {books.map(book => (
-                        <SearchBook book={book} key={book.id} />
-                    ))}
+
+                    {totalBooks > 0 ?
+                        <>
+                            <div className="mt-3">
+                                <h5>Number of results: ({totalBooks})</h5>
+                            </div>
+                            <p>{indexFirstBook + 1} to {lastItem} of {totalBooks} items:</p>
+                            {books.map(book => (
+                                <SearchBook book={book} key={book.id} />
+                            ))}
+                        </>
+                        :
+                        <div className="m-5">
+                            <h3>Sorry, we couldn't find any results</h3>
+                            - Try adjusting your search. Here are some ideas: <br />
+                            - Make sure all words are spelled correctly <br />
+                            - Try different search terms <br />
+                            - Try more general search terms
+
+                        </div>
+                    }
                     {totalPages > 1 &&
                         <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate} />
                     }
