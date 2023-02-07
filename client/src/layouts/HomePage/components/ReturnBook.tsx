@@ -11,7 +11,7 @@ export const ReturnBook: React.FC<{ book: Book }> = (props) => {
                     <img src={require('./../../../Images/BooksImages/new-book-1.jpg')} width='200' height='300' alt="Book" />
                 }
                 <h6 className="mt-2">{props.book.title}</h6>
-                <p><i>{props.book.author}</i></p>
+                <p>by <i><b>{props.book.author}</b></i></p>
                 <a className="btn main-color text-white btn-sm" href="#">Reverve</a>
             </div>
         </div>

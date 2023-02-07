@@ -114,12 +114,12 @@ export const SearchBookPage = () => {
                             <div className="d-flex">
                                 <input type="search" className="form-control me-2" placeholder="Search for anything..." aria-labelledby="Search"
                                     onChange={e => setSearch(e.target.value)} />
-                                <button className="btn btn-md btn-info text-white" onClick={() => searchHandleChange()}>Search</button>
+                                <button className="btn btn-md btn-outline-primary text-muted" onClick={() => searchHandleChange()}>Search</button>
                             </div>
                         </div>
                         <div className="col-4">
                             <div className="dropdown">
-                                <button className="btn btn-md btn-warning dropdown-toggle" type="button"
+                                <button className="btn btn-md btn-outline-warning text-muted dropdown-toggle" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded='false'>{categorySelection}
                                 </button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
