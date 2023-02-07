@@ -26,7 +26,7 @@ export const SearchBook: React.FC<{ book: Book }> = (props) => {
                         <h4 className="card-title">
                             {props.book.title}
                         </h4>
-                        <h5> by<i> {props.book.author}</i></h5>
+                        <h6>by <i className="text-primary">{props.book.author}</i> (Author)</h6>
                         <p className="card-text">{props.book.description}</p>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
       <div className="container-fluid">
-        <span className="navbar-brand">eBook Library</span>
+        <span className="navbar-brand text-info"><b>eBook Library</b></span>
         <button
           className="navbar-toggler"
           type="button"
