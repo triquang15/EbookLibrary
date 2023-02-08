@@ -1,4 +1,10 @@
+import {useOktaAuth} from '@okta/okta-react';
+import { Link } from 'react-router-dom';
+
 export const Heros = () => {
+
+    const { authState } = useOktaAuth();
+
     return (
         <div>
         <div className="d-none d-lg-block">
@@ -13,7 +19,12 @@ export const Heros = () => {
                         <p>
                          Hello again, readers! Last time, we took a look at some of the best new Libby features of 2022. We’ve got some more great stuff in the works for 2023, but how well do you know the features that are already in the Libby app? Let’s look at some cool features you might not know about.
                         </p>
-                        <a href="#" className="btn btn-danger btn-sm text-white">Read more</a>
+                        {authState?.isAuthenticated ?
+                            <Link type="button" className='btn btn-danger btn-sm text-white' to='search'>Explore Top Books</Link>
+                            :
+                        <Link to='/login' className="btn btn-danger btn-sm text-white">Read more</Link>
+                    }
+                        
                     </div>
                 </div>
             </div>
@@ -25,7 +36,11 @@ export const Heros = () => {
                         <p>
                         Could you abstain from alcohol for a month? Many took on the challenge, otherwise known as Dry January or taking a 31-day break from alcohol. The health campaign started by Alcohol Change UK began in 2013, with the goal of the challenge to experience improvements in both your mental and physical health. 
                         </p>
-                        <a href="#" className="btn btn-danger btn-sm text-white">Read more</a>
+                        {authState?.isAuthenticated ?
+                            <Link type="button" className='btn btn-danger btn-sm text-white' to='search'>Explore Top Books</Link>
+                            :
+                        <Link to='/login' className="btn btn-danger btn-sm text-white">Read more</Link>
+                    }
                     </div>
                 </div>
                 <div className="col-sm-6 col-md-6">
