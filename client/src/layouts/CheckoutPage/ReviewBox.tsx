@@ -1,21 +1,33 @@
 import { Link } from "react-router-dom";
 import Book from "../../models/Book";
+import { LeaveReview } from "../Utils/LeaveReview";
 
-export const ReviewBox: React.FC<{book: Book | undefined, mobile: boolean,
-    currentLoansCount: number, isAuthenticated:any, isCheckout: boolean, checkoutBook: any}> = (props) => {
+export const ReviewBox: React.FC<{
+    book: Book | undefined, mobile: boolean,
+    currentLoansCount: number, isAuthenticated: any, isCheckout: boolean, checkoutBook: any, 
+    isReviewLeft: boolean, submitReview: any}> = (props) => {
 
     function buttonRender() {
-        if(props.isAuthenticated) {
-            if(!props.isCheckout && props.currentLoansCount < 5) {
+        if (props.isAuthenticated) {
+            if (!props.isCheckout && props.currentLoansCount < 5) {
                 return (<button onClick={() => props.checkoutBook()} className="btn btn-secondary btn-lg">Checked Out</button>)
-            } else if(props.isCheckout) {
-                return (<p><b>Book checked out. Enjoy!</b></p>)
-            } else if(!props.isCheckout) {
+            } else if (props.isCheckout) {
+                return (<p className="text-center"><b>Book checked out. Enjoy!</b></p>)
+            } else if (!props.isCheckout) {
                 return (<p className="text-danger">Too many books checked out.</p>)
             }
         }
 
-        return ( <Link to='/login' className="btn btn-success btn-lg">Want to Read</Link>)
+        return (<Link to='/login' className="btn btn-success btn-lg">Want to Read</Link>)
+    }
+
+    function reviewRender() {
+        if (props.isAuthenticated && !props.isReviewLeft) {
+            return (<p className="text-center"><LeaveReview submitReview={props.submitReview} /></p>)
+        } else if (props.isAuthenticated && props.isReviewLeft) {
+            return (<p className="text-center"><b className="text-danger">Thank you your review!</b></p>)
+        }
+        return (<div><hr /><p>Sign in to be able leave a review.</p></div>)
     }
 
     return (
@@ -39,10 +51,10 @@ export const ReviewBox: React.FC<{book: Book | undefined, mobile: boolean,
                     </p>
                 </div>
             </div>
-             {buttonRender()}
+            {buttonRender()}
             <hr />
-            <p className="mt-3">Enjoying this preview? Become a member to read the full title.</p>
-            <p>Join today and read free for 30 days. Need help?</p>
+            <p className="text-center">This number can change until placing order has been completed.</p>
+            {reviewRender()}
         </div>
     );
 }
