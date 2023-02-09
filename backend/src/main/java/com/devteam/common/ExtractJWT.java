@@ -20,24 +20,20 @@ public class ExtractJWT {
 		for (String entry : entries) {
 			String[] keyValue = entry.split(":");
 			if (keyValue[0].equals(extraction)) {
-				int remove = 1;
 
+				int remove = 1;
 				if (keyValue[1].endsWith("}")) {
 					remove = 2;
 				}
-
 				keyValue[1] = keyValue[1].substring(0, keyValue[1].length() - remove);
 				keyValue[1] = keyValue[1].substring(1);
 
 				map.put(keyValue[0], keyValue[1]);
 			}
 		}
-
 		if (map.containsKey(extraction)) {
 			return map.get(extraction);
 		}
-
 		return null;
-
 	}
 }
