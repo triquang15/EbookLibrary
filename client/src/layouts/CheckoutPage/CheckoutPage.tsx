@@ -82,7 +82,6 @@ export const CheckoutPage = () => {
                     date: responseData[key].date,
                     rating: responseData[key].rating,
                     book_id: responseData[key].book_id,
-                    fullname: responseData[key].fullname,
                     headline: responseData[key].headline,
                     message: responseData[key].message
                 });

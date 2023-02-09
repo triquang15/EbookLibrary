@@ -64,7 +64,8 @@ export const Carousel = () => {
     return (
         <div className="container mt-5" style={{ height: 550 }}>
             <div className="homepage-carousel-title">
-                <h3>Find your next "I stayed too late reading" books.</h3>
+                <h1><b>How well does our reading experience work for you?</b></h1> &nbsp;&nbsp;&nbsp;
+                <button className="btn btn-info btn-lg text-white">Take a short survey</button>
             </div>
             <div id="carouselExampleControls" className="carousel carousel-dark slide mt-5
             d-none d-lg-block" data-bs-interval="false">

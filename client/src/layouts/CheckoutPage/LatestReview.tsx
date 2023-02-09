@@ -9,7 +9,7 @@ export const LatestReview: React.FC<{
     return (
         <div className={props.mobile ? 'mt-3' : 'row mt-5'}>
             <div className={props.mobile ? '' : 'col-sm-2 col-md-2'}>
-                <h3><b>Customer reviews</b></h3>
+                <h3><b>Community Reviews</b></h3>
             </div>
             <div className="col-sm-10 col-md-10">
                 {props.reviews.length > 0 ?
@@ -26,7 +26,7 @@ export const LatestReview: React.FC<{
                 </>    
                 :
                 <div className="m-3">
-                    <p className="lead">Share your thoughts with other customers</p>
+                    <p className="lead">No community reviews have been submitted for this work.</p>
                 </div>
             }
             </div>

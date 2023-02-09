@@ -16,20 +16,19 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
 		httpSecurity.csrf().disable();
-		httpSecurity.authorizeRequests(config -> config.antMatchers("/api/books/checkout/**")
+		httpSecurity.authorizeRequests(
+				config -> config.antMatchers("/api/books/checkout/**", "/api/reviews/secure/**")
 				.authenticated())
-				.oauth2ResourceServer()
-				.jwt();
-		
-		  // Add CORS filters
+				.oauth2ResourceServer().jwt();
+
+		// Add CORS filters
 		httpSecurity.cors();
 
-        // Add content negotiation strategy
-		httpSecurity.setSharedObject(ContentNegotiationStrategy.class,
-                new HeaderContentNegotiationStrategy());
+		// Add content negotiation strategy
+		httpSecurity.setSharedObject(ContentNegotiationStrategy.class, new HeaderContentNegotiationStrategy());
 
-        // Force a non-empty response body for 401's to make the response friendly
-        Okta.configureResourceServer401ResponseBody(httpSecurity);
+		// Force a non-empty response body for 401's to make the response friendly
+		Okta.configureResourceServer401ResponseBody(httpSecurity);
 
 		return httpSecurity.build();
 

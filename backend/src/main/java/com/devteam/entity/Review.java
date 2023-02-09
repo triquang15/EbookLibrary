@@ -35,9 +35,6 @@ public class Review {
 	@Column(name = "book_id")
 	private Long bookId;
 	
-	@Column(name = "fullname")
-	private String fullname;
-	
 	@Column(name = "headline")
 	private String headline;
 	

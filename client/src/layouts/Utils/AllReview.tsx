@@ -12,7 +12,7 @@ export const AllReview: React.FC<{ review: Review }> = (props) => {
     return (
         <div>
             <div className="col-sm-8 col-md-8">
-                <h6 className="text-muted">{props.review.fullname}</h6>
+                <h6 className="text-muted">{props.review.email}</h6>
                 <h5>{props.review.headline}</h5>
                 <div className="row">
                     <div className="col">
