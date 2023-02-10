@@ -14,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devteam.common.ShelfLoansResponse;
 import com.devteam.dao.BookRepository;
+import com.devteam.dao.HistoryRepository;
 import com.devteam.dao.OrderRepository;
 import com.devteam.entity.Book;
 import com.devteam.entity.Order;
+import com.devteam.entity.History;
 
 @Service
 @Transactional
@@ -26,6 +28,9 @@ public class BookService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+
+	@Autowired
+	private HistoryRepository historyRepository;
 
 	public Book checkoutBook(String email, Long bookId) throws Exception {
 		Optional<Book> book = bookRepository.findById(bookId);
@@ -99,6 +104,11 @@ public class BookService {
 		book.get().setCopiesAvailable(book.get().getCopiesAvailable() + 1);
 		bookRepository.save(book.get());
 		orderRepository.deleteById(order.getId());
+
+		History orderDetails = new History(userEmail, order.getCheckoutDate(), LocalDate.now().toString(),
+				book.get().getTitle(), book.get().getAuthor(), book.get().getDescription(), book.get().getImage());
+
+		historyRepository.save(orderDetails);
 	}
 
 	public void renewLoan(String userEmail, Long bookId) throws Exception {
