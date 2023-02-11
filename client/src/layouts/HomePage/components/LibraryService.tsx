@@ -15,7 +15,7 @@ export const LibraryService = () => {
                     <p>Borrow ebooks, audiobooks, magazines and more from your local library for free! Libby is the newer library reading app by OverDrive, loved by millions of readers worldwide.
                     </p>
                      {authState?.isAuthenticated ?
-                            <Link type="button" className='btn btn-danger btn-sm text-white' to='search'>Explore Top Books</Link>
+                            <Link type="button" className='btn btn-danger btn-sm text-white' to='/messages'>eBook Library Services</Link>
                             :
                         <Link to='/login' className="btn btn-danger btn-sm text-white">Read more</Link>
                     }
