@@ -70,15 +70,15 @@ export const Messages = () => {
                     {messages.map(message => (
                         <div key={message.id}>
                             <div className='card mt-2 shadow p-3 bg-body rounded'>
-                                <h5>Case #{message.id}: {message.title}</h5>
+                                <h5>Question #{message.id}: {message.title}</h5>
                                 <h6>{message.email}</h6>
                                 <p>{message.question}</p>
                                 <hr/>
                                 <div>
-                                    <h5>Response: </h5>
+                                    <h5>Answer: </h5>
                                     {message.response && message.email ? 
                                         <>
-                                            <h6>{message.email} (admin)</h6>
+                                            <h6>{message.admin} (Admin)</h6>
                                             <p>{message.response}</p>
                                         </>
                                         :

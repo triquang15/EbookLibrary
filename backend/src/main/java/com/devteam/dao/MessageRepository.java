@@ -10,4 +10,6 @@ import com.devteam.entity.Message;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 	
 	Page<Message> findByEmail(@RequestParam("email") String email, Pageable pageable);
+	
+	Page<Message> findByClosed(@RequestParam("closed") boolean closed, Pageable pageable);
 }
