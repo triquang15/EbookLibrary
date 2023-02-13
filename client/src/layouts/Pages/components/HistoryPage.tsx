@@ -102,8 +102,8 @@ export const HistoryPage = () => {
             </>    
             :
             <>
-                <h3 className="mt-3">Currently no history</h3>
-                <Link className='btn btn-primary' to='search'>Search for new book</Link>
+                <h3 className="mt-3 text-danger text-center">Currently no history</h3>
+              
             </>
         }
         {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate}/>}

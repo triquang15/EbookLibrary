@@ -21,7 +21,7 @@ export const SearchBook: React.FC<{ book: Book }> = (props) => {
                         }
                     </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-10">
                     <div className="card-body">
                         <h4 className="card-title">
                             {props.book.title}
@@ -30,7 +30,7 @@ export const SearchBook: React.FC<{ book: Book }> = (props) => {
                         <p className="card-text">{props.book.description}</p>
                     </div>
                 </div>
-                <div className="col-md-4 d-flex justify-content-center align-items-center">
+                <div className="col-md-12 d-flex justify-content-center align-items-center">
                     <Link className="btn btn-sm btn-danger text-blue" to={`/checkout/${props.book.id}`}>Read preview</Link>
                 </div>
             </div>

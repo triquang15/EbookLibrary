@@ -97,23 +97,25 @@ export const Loans = () => {
             <div className='d-none d-lg-block mt-2'>
                 {shelfCurrentLoans.length > 0 ? 
                 <>
-                    <h5>Current Loans: </h5>
+                    <h3 className="text-danger text-center">Manage Loans </h3>
 
                     {shelfCurrentLoans.map(shelfCurrentLoan => (
                         <div key={shelfCurrentLoan.book.id}>
                             <div className='row mt-3 mb-3'>
                                 <div className='col-4 col-md-4 container'>
                                 {shelfCurrentLoan.book?.image ? 
-                                        <img src={shelfCurrentLoan.book?.image} width='226' height='349' alt='Book'/>
+                                        <img src={shelfCurrentLoan.book?.image} width='250' height='349' alt='Book'/>
                                         :
                                         <img src={require('./../../../Images/BooksImages/new-book-1.jpg')} width='226' height='349' alt="Book" />
                                           
                                     }
+                                    
                                 </div>
                                 <div className='card col-3 col-md-3 container d-flex'>
                                     <div className='card-body'>
                                         <div className='mt-3'>
-                                            <h4>Loan Options</h4>
+                                            <h4>{shelfCurrentLoan.book.title}</h4>
+                                            <h6>by {shelfCurrentLoan.book.author}</h6>
                                             {shelfCurrentLoan.daysLeft > 0 && 
                                                 <p className='text-secondary'>
                                                     Due in {shelfCurrentLoan.daysLeft} days.
@@ -130,22 +132,20 @@ export const Loans = () => {
                                                 </p>
                                             }
                                             <div className='list-group mt-3'>
-                                                <button className='list-group-item list-group-item-action' 
+                                                <button className='btn btn-danger' 
                                                     aria-current='true' data-bs-toggle='modal' 
                                                     data-bs-target={`#modal${shelfCurrentLoan.book.id}`}>
-                                                        Manage Loan
+                                                        RETURN BOOK
                                                 </button>
-                                                <Link to={'search'} className='list-group-item list-group-item-action'>
-                                                    Search more books?
-                                                </Link>
+                                               
                                             </div>
                                         </div>
                                         <hr/>
                                         <p className='mt-3'>
-                                            Help other find their adventure by reviewing your loan.
+                                           Keep Track of your Favorite Books
                                         </p>
                                         <Link className='btn btn-primary' to={`/checkout/${shelfCurrentLoan.book.id}`}>
-                                            Leave a review
+                                            Share your thoughts with other customers
                                         </Link>
                                     </div>
                                 </div>
@@ -157,12 +157,9 @@ export const Loans = () => {
                     ))}
                 </> :
                 <>
-                    <h3 className='mt-3'>
+                    <h3 className='mt-3 text-danger text-center'>
                         Currently no loans
                     </h3>
-                    <Link className='btn btn-primary' to={`search`}>
-                        Search for a new book
-                    </Link>
                 </>
             }
             </div>
@@ -171,7 +168,7 @@ export const Loans = () => {
             <div className='container d-lg-none mt-2'>
                 {shelfCurrentLoans.length > 0 ? 
                 <>
-                    <h5 className='mb-3'>Current Loans: </h5>
+                    <h5 className='mb-3' text-danger text-center>Manage Loans </h5>
 
                     {shelfCurrentLoans.map(shelfCurrentLoan => (
                         <div key={shelfCurrentLoan.book.id}>
@@ -215,10 +212,10 @@ export const Loans = () => {
                                         </div>
                                         <hr/>
                                         <p className='mt-3'>
-                                            Help other find their adventure by reviewing your loan.
+                                        Keep Track of your Favorite Books
                                         </p>
                                         <Link className='btn btn-primary' to={`/checkout/${shelfCurrentLoan.book.id}`}>
-                                            Leave a review
+                                        Share your thoughts with other customers
                                         </Link>
                                     </div>
                                 </div>
@@ -229,12 +226,10 @@ export const Loans = () => {
                     ))}
                 </> :
                 <>
-                    <h3 className='mt-3'>
+                    <h3 className='mt-3' text-danger text-center>
                         Currently no loans
                     </h3>
-                    <Link className='btn btn-primary' to={`search`}>
-                        Search for a new book
-                    </Link>
+        
                 </>
             }
             </div>

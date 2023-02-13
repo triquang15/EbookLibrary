@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AddNewBook } from "./components/AddNewBook";
 import { AdminMessage } from "./components/AdminMessage";
+import { UpdateQuantity } from "./components/UpdateQuantity";
 
 export const ManageLibraryPage = () => {
     const { authState } = useOktaAuth();
@@ -38,7 +39,7 @@ export const ManageLibraryPage = () => {
                     <button onClick={addNewBook} className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Manage Books</button>
                 </li>
                 <li className="nav-item" role="presentation">
-                    <button onClick={changeQuantity} className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Change Quantity</button>
+                    <button onClick={changeQuantity} className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Update Quantity</button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button onClick={messageClickFunction} className="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Customer Q&A</button>
@@ -50,7 +51,7 @@ export const ManageLibraryPage = () => {
                     <AddNewBook/>
                 </div>
                 <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" >
-                    {changeQuantityOfBookClick ? <>Change quantity</> : <></>}
+                    {changeQuantityOfBookClick ? <UpdateQuantity/> : <></>}
                 </div>
                 <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" >
                     {messageClick ? <AdminMessage/>  : <></>}

@@ -55,10 +55,18 @@ export const Navbar = () => {
               </NavLink>
             </li>
 
-            {authState.isAuthenticated &&
+            {authState.isAuthenticated && 
               <li className="nav-item">
                 <NavLink className="nav-link" to="/shelf">
                   My Orders
+                </NavLink>
+              </li>
+            }
+            {
+              authState.isAuthenticated && authState.accessToken?.claims?.userType === 'admin' &&
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/admin">
+                  Admin
                 </NavLink>
               </li>
             }

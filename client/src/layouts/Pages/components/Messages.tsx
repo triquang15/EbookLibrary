@@ -42,7 +42,7 @@ export const Messages = () => {
             setIsLoadingMessage(false);
             setHttpError(error.messages);
         })
-        window.scrollTo(0, 0);
+        
     }, [[authState, currentPage]]);
 
     if (isLoadingMessage) {
@@ -90,7 +90,7 @@ export const Messages = () => {
                     ))}
                 </>
                 :
-                <h5>All questions you submit will be shown here</h5>
+                <h5 className="text-center text-danger">All questions you submit will be shown here</h5>
             }
             {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate}/>}
         </div>

@@ -248,12 +248,12 @@ export const CheckoutPage = () => {
                 <div className="row mt-5">
                     <div className="col-sm-2 col-md-2">
                         {book?.image ?
-                            <img src={book?.image} width='226' height='349' alt="book" />
+                            <img src={book?.image} width='200' height='300' alt="book" />
                             :
                             <img src={require('./../../Images/BooksImages/new-book-1.jpg')} width='226' height='349' alt="Book" />
                         }
                     </div>
-                    <div className="col-4 col-md-4 container">
+                    <div className="col-6 col-md-6 container">
                         <div className="ml-2">
                             <h2>{book?.title}</h2>
                             <h6>by <i className="text-primary">{book?.author}</i> (Author)</h6>

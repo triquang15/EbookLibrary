@@ -79,34 +79,7 @@ export const Carousel = () => {
                             ))}
                         </div>
                     </div>
-
-                    <div className="carousel-item">
-                        <div className="row d-flex justify-content-center align-items-center">
-                            {books.slice(4, 8).map(book => (
-                                <ReturnBook book={book} key={book.id} />
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="carousel-item">
-                        <div className="row d-flex justify-content-center align-items-center">
-                            {books.slice(8, 12).map(book => (
-                                <ReturnBook book={book} key={book.id} />
-                            ))}
-                        </div>
-                    </div>
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target='#carouselExampleControls'
-                    data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
-                </button>
-
-                <button className="carousel-control-next" type="button" data-bs-target='#carouselExampleControls'
-                    data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
-                </button>
             </div>
 
             {/* Mobile */}
@@ -115,10 +88,6 @@ export const Carousel = () => {
                     <ReturnBook book={books[4]} key={books[4].id} />
                 </div>
             </div>
-            <div className="homepage-carousel-title mt-3">
-                <Link to="/search" className="btn btn-outline-danger btn-sm">View More</Link>
-            </div>
-            <br />
         </div>
     );
 }
