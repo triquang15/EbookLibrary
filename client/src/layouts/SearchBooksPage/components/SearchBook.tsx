@@ -8,7 +8,7 @@ export const SearchBook: React.FC<{ book: Book }> = (props) => {
                 <div className="col-md-2">
                     <div className="d-none d-lg-block">
                         {props.book.image ?
-                            <img src={props.book.image} alt="book" width='123' height='196' />
+                            <img src={props.book.image} alt="book" width='200' height='300' />
                             :
                             <img src={require('./../../../Images/BooksImages/new-book-1.jpg')} width='123' height='196' alt="Book" />
                         }

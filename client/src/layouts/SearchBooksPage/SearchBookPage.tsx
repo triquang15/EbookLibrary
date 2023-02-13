@@ -87,10 +87,11 @@ export const SearchBookPage = () => {
 
     const categoryField = (value: string) => {
         if (
-            value === 'Java' ||
-            value === 'Python' ||
-            value === 'Javascript' ||
-            value === 'DevOps'
+            value === 'Cloud Computing' ||
+            value === 'Data Science' ||
+            value === 'IT Operations' ||
+            value === 'Design' ||
+            value === 'Development'
         ) {
             setCategorySelection(value);
             setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`);
@@ -126,17 +127,20 @@ export const SearchBookPage = () => {
                                     <li onClick={() => categoryField('All Categories')}>
                                         <a href="#" className="dropdown-item">All Categories</a>
                                     </li>
-                                    <li onClick={() => categoryField('Java')}>
-                                        <a href="#" className="dropdown-item">Java</a>
+                                    <li onClick={() => categoryField('Cloud Computing')}>
+                                        <a href="#" className="dropdown-item">Cloud Computing</a>
                                     </li>
-                                    <li onClick={() => categoryField('Python')}>
-                                        <a href="#" className="dropdown-item">Python</a>
+                                    <li onClick={() => categoryField('Data Science')}>
+                                        <a href="#" className="dropdown-item">Data Science</a>
                                     </li>
-                                    <li onClick={() => categoryField('Javascript')}>
-                                        <a href="#" className="dropdown-item">JavaScript</a>
+                                    <li onClick={() => categoryField('IT Operations')}>
+                                        <a href="#" className="dropdown-item">IT Operations</a>
                                     </li>
-                                    <li onClick={() => categoryField('DevOps')}>
-                                        <a href="#" className="dropdown-item">DevOps</a>
+                                    <li onClick={() => categoryField('Design')}>
+                                        <a href="#" className="dropdown-item">Design</a>
+                                    </li>
+                                    <li onClick={() => categoryField('Development')}>
+                                        <a href="#" className="dropdown-item">Development</a>
                                     </li>
                                 </ul>
                             </div>

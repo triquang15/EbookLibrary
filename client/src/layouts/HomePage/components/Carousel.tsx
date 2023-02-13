@@ -65,7 +65,7 @@ export const Carousel = () => {
         <div className="container mt-5" style={{ height: 550 }}>
             <div className="homepage-carousel-title">
                 <h1><b>How well does our reading experience work for you?</b></h1> &nbsp;&nbsp;&nbsp;
-                <button className="btn btn-info btn-lg text-white">Take a short survey</button>
+                <Link className="btn btn-info btn-lg text-white" to='/messages'>Take a short survey</Link>
             </div>
             <div id="carouselExampleControls" className="carousel carousel-dark slide mt-5
             d-none d-lg-block" data-bs-interval="false">
@@ -74,7 +74,7 @@ export const Carousel = () => {
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <div className="row d-flex justify-content-center align-items-center">
-                            {books.slice(0, 3).map(book => (
+                            {books.slice(0, 4).map(book => (
                                 <ReturnBook book={book} key={book.id} />
                             ))}
                         </div>
@@ -82,7 +82,7 @@ export const Carousel = () => {
 
                     <div className="carousel-item">
                         <div className="row d-flex justify-content-center align-items-center">
-                            {books.slice(3, 6).map(book => (
+                            {books.slice(4, 8).map(book => (
                                 <ReturnBook book={book} key={book.id} />
                             ))}
                         </div>
@@ -90,7 +90,7 @@ export const Carousel = () => {
 
                     <div className="carousel-item">
                         <div className="row d-flex justify-content-center align-items-center">
-                            {books.slice(6, 9).map(book => (
+                            {books.slice(8, 12).map(book => (
                                 <ReturnBook book={book} key={book.id} />
                             ))}
                         </div>

@@ -9,7 +9,7 @@ export const ReturnBook: React.FC<{ book: Book }> = (props) => {
                 {props.book.image ?
                     <img src={props.book.image} width='200' height='300' alt="Book" /> 
                     :
-                    <img src={require('./../../../Images/BooksImages/new-book-1.jpg')} width='200' height='300' alt="Book" />
+                    <img src={require('./../../../Images/BooksImages/new-book-1.jpg')} width='250' height='300' alt="Book" />
                 }
                 <h6 className="mt-2">{props.book.title}</h6>
                 <p>by <i><b>{props.book.author}</b></i></p>

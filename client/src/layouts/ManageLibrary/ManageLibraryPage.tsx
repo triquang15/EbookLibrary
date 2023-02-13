@@ -1,6 +1,7 @@
 import { useOktaAuth } from "@okta/okta-react"
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { AddNewBook } from "./components/AddNewBook";
 import { AdminMessage } from "./components/AdminMessage";
 
 export const ManageLibraryPage = () => {
@@ -34,7 +35,7 @@ export const ManageLibraryPage = () => {
             </div><br />
             <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li className="nav-item" role="presentation">
-                    <button onClick={addNewBook} className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Books</button>
+                    <button onClick={addNewBook} className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Manage Books</button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button onClick={changeQuantity} className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Change Quantity</button>
@@ -45,7 +46,9 @@ export const ManageLibraryPage = () => {
                
             </ul>
             <div className="tab-content" id="pills-tabContent">
-                <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" >...</div>
+                <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" >
+                    <AddNewBook/>
+                </div>
                 <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" >
                     {changeQuantityOfBookClick ? <>Change quantity</> : <></>}
                 </div>
