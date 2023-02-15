@@ -33,6 +33,9 @@ export const CheckoutPage = () => {
     const [isCheckout, setIsCheckout] = useState(false);
     const [isLoadingBookCheckout, setIsLoadingBookCheckout] = useState(true);
 
+    // Payment
+    const [displayError, setdisplayError] = useState(false);
+
 
     useEffect(() => {
         const fetchBook = async () => {
@@ -236,15 +239,21 @@ export const CheckoutPage = () => {
 
         const checkoutResponse = await fetch(url, responseOptions);
         if (!checkoutResponse.ok) {
+            setdisplayError(true);
             throw new Error('Something went wrong!');
         }
-
+        setdisplayError(false);
         setIsCheckout(true);
     }
 
     return (
         <div>
             <div className="container d-none d-lg-block">
+                {displayError && <div className="alert alert-danger text-center mt-3" role='alert'>
+                     Please pay or return expired books
+                </div>
+
+                }
                 <div className="row mt-5">
                     <div className="col-sm-2 col-md-2">
                         {book?.image ?

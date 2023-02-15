@@ -16,8 +16,10 @@ import com.devteam.common.ShelfLoansResponse;
 import com.devteam.dao.BookRepository;
 import com.devteam.dao.HistoryRepository;
 import com.devteam.dao.OrderRepository;
+import com.devteam.dao.PaymentRepository;
 import com.devteam.entity.Book;
 import com.devteam.entity.Order;
+import com.devteam.entity.Payment;
 import com.devteam.entity.History;
 
 @Service
@@ -32,6 +34,9 @@ public class BookService {
 	@Autowired
 	private HistoryRepository historyRepository;
 
+	@Autowired
+	PaymentRepository paymentRepository;
+
 	public Book checkoutBook(String email, Long bookId) throws Exception {
 		Optional<Book> book = bookRepository.findById(bookId);
 
@@ -39,6 +44,37 @@ public class BookService {
 
 		if (!book.isPresent() || order != null || book.get().getCopiesAvailable() <= 0) {
 			throw new Exception("Book already checked out by user");
+		}
+
+		List<Order> currentBooksCheckout = orderRepository.findBookByEmail(email);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		boolean bookNeedsReturned = false;
+
+		for (Order newOrder : currentBooksCheckout) {
+			Date date1 = dateFormat.parse(newOrder.getReturnDate());
+			Date date2 = dateFormat.parse(LocalDate.now().toString());
+
+			TimeUnit timeUnit = TimeUnit.DAYS;
+			double differenceInTime = timeUnit.convert(date1.getTime() - date2.getTime(), TimeUnit.MILLISECONDS);
+			if (differenceInTime < 0) {
+				bookNeedsReturned = true;
+				break;
+			}
+		}
+
+		Payment userPayment = paymentRepository.findByUserEmail(email);
+
+		if (userPayment != null && userPayment.getAmount() > 0 || (userPayment != null && bookNeedsReturned)) {
+			throw new Exception("Outstanding fees");
+		}
+
+		if (userPayment == null) {
+			Payment payment = new Payment();
+			payment.setAmount(00.00);
+			payment.setUserEmail(email);
+
+			paymentRepository.save(payment);
 		}
 
 		book.get().setCopiesAvailable(book.get().getCopiesAvailable() - 1);
@@ -103,6 +139,19 @@ public class BookService {
 
 		book.get().setCopiesAvailable(book.get().getCopiesAvailable() + 1);
 		bookRepository.save(book.get());
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date1 = dateFormat.parse(order.getReturnDate());
+		Date date2 = dateFormat.parse(LocalDate.now().toString());
+		TimeUnit timeUnit = TimeUnit.DAYS;
+		double differenceInTime = timeUnit.convert(date1.getTime() - date2.getTime(), TimeUnit.MILLISECONDS);
+		if (differenceInTime < 0) {
+			Payment payment = paymentRepository.findByUserEmail(userEmail);
+			payment.setAmount(payment.getAmount() + (differenceInTime * -1));
+
+			paymentRepository.save(payment);
+		}
+
 		orderRepository.deleteById(order.getId());
 
 		History orderDetails = new History(userEmail, order.getCheckoutDate(), LocalDate.now().toString(),

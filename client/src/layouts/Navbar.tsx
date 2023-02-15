@@ -54,7 +54,13 @@ export const Navbar = () => {
                 Invite friends
               </NavLink>
             </li>
-
+            {authState.isAuthenticated && 
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/fees">
+                 Payment Fees
+                </NavLink>
+              </li>
+            }
             {authState.isAuthenticated && 
               <li className="nav-item">
                 <NavLink className="nav-link" to="/shelf">
