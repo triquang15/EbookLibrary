@@ -20,7 +20,7 @@ export const Messages = () => {
     useEffect(() => {
         const fetUserMessage = async () => {
             if (authState && authState?.isAuthenticated) {
-                const url = `http://localhost:8080/api/messages/search/findByEmail/?email=${authState?.accessToken?.claims.sub}&page=${currentPage - 1}&size=${messagePerPage}`;
+                const url = `${process.env.REACT_APP_API}/messages/search/findByEmail/?email=${authState?.accessToken?.claims.sub}&page=${currentPage - 1}&size=${messagePerPage}`;
                 const requestOptions = {
                     method: 'GET',
                     headers: {

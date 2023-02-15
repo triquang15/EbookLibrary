@@ -8,7 +8,8 @@ class MessageModel {
   closed?: boolean;
 
   constructor(title: string, question: string) {
-    (this.title = title), (this.question = question);
+    this.title = title;
+    this.question = question;
   }
 }
 
